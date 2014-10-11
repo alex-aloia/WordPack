@@ -87,19 +87,25 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/vmtools.sh",
-	"scripts/vagrant.sh",
-	"scripts/ruby.sh",
-	"scripts/chef.sh",
-	"scripts/cleanup.sh",
-	"scripts/zerodisk.sh"
+        "scripts/vagrant.sh",
+        "scripts/ruby.sh",
+        "scripts/ansible.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
       ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "/Users/tripl3inf/Ansible/playbook_vmware.yml",
+      "extra_arguments": ["-vvvv"],
+      "playbook_dir": "/Users/tripl3inf/Ansible"
     }
   ],
   "post-processors": [  
     {
       "type": "vagrant",
-	"output" : "Ubuntu-Server-1404_{{.Provider}}_{{isotime}}.box",
-	"keep_input_artifact": true
+      "output" : "Ubuntu-Server-1404_{{.Provider}}_{{isotime}}.box",
+      "keep_input_artifact": true
     }
   ]
 }
