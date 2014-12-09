@@ -1,3 +1,5 @@
+
+.idea/**
 # SublimeText
 *.sublime-workspace
 
@@ -17,6 +19,7 @@ Icon
 
 *.box
 *_cache
-.vagrant
-output-virtualbox*
-output-vmware*
+.tripl3inf
+ubuntu-server/vm_output/**
+ubuntu-server/output-virtualbox*
+ubuntu-server/output-vmware*

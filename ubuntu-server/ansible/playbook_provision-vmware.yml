@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  connection: local
+  user: tripl3inf
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Update apt
+    sudo: yes
+    apt: update_cache=yes
+
+  - name: Install open-vm-tools
+    sudo: yes
+    apt: pkg=open-vm-tools state=latest
+
+
+
+
+#  roles:
+#    - vmware
