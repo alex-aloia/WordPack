@@ -1,0 +1,8 @@
+---
+ - name: Add NodeJS apt repo
+   shell: curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+ - name: Install NodeJS
+   apt: pkg=nodejs state=present
+   sudo: yes
+#   remote_user: '{{deploy_user}}'

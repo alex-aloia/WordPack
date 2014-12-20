@@ -1,0 +1,60 @@
+---
+# tasks file for mariadb
+- include_vars: ./app-keys.yml
+
+- name: Add MariaDB MySQL apt-key
+  apt_key: url="http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search={{ keyserver_fingerprint }}"
+           state=present
+
+- name: Add MariaDB MySQL deb and deb-src
+  apt_repository: repo="{{ item }}" state=present
+  with_items:
+  - "deb http://{{ mirror }}/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main"
+  - "deb-src http://{{ mirror }}/mariadb/repo/{{ mariadb_version }}/ubuntu {{ ansible_distribution_release }} main"
+
+- name: Install MariaDB MySQL server
+  apt: name=mariadb-server state=present
+
+- name: Install python and PHP extensions  #required for mysql_db tasks
+  apt: name={{ item }} state=present
+  with_items:
+    - python-mysqldb
+
+- name: Start MariaDB MySQL Server
+  service: name=mysql state=started enabled=true
+
+- name: Set root user password
+  mysql_user: name=root
+              password="{{ sql_root_pass }}"
+              check_implicit_admin=yes
+              login_user=root
+              login_password="{{ sql_root_pass }}"
+              state=present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+
+- name: Delete anonymous MySQL server user for current hostname
+  mysql_user: user=""
+              host="{{ ansible_hostname }}"
+              state=absent
+              login_user=root
+              login_password="{{ sql_root_pass }}"
+
+- name: Delete anonymous MySQL server user for localhost
+  mysql_user: user=""
+              state=absent
+              login_user=root
+              login_password="{{ sql_root_pass }}"
+
+- name: Remove the test database
+  mysql_db: name=test
+            state=absent
+            login_user=root
+            login_password="{{ sql_root_pass }}"
+
+
+

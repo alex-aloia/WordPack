@@ -1,0 +1,4 @@
+# MarinaDB
+keyserver_fingerprint: "0xcbcb082a1bb943db"
+mirror: mirrors.coreix.net
+mariadb_version: "10.0"

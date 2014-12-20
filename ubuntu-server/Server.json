@@ -49,6 +49,7 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/vagrant.sh",
+        "scripts/vmtools.sh",
         "scripts/ansible.sh"
       ]
     },
@@ -59,10 +60,11 @@
       "playbook_dir": "/Users/tripl3inf/Packer/ubuntu-server/ansible"
     }
   ],
-  "post-processors": [  
+  "post-processors": [
     {
-      "type": "compress",
-      "output": "VM_ub14.tar.gz"
+      "type": "vagrant",
+      "output" : "Ubuntu-Server-1404_{{.Provider}}_{{isotime}}.box",
+      "keep_input_artifact": true
     }
   ]
 }
