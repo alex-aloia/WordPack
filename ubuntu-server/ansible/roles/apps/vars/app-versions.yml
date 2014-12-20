@@ -1,6 +1,0 @@
----
-# app versions
-
-version:
-  nvm: v0.16.1
-  nodejs: 0.10.33
