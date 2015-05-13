@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-  user: tripl3inf
+  user: vagrant
   remote_user: root
   gather_facts: yes
   tasks:

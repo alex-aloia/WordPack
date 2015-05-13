@@ -1,8 +1,8 @@
 {
   "builders": [
-	{
-	  "type": "vmware-iso",
-          "boot_command": [
+    {
+      "type": "vmware-iso",
+      "boot_command": [
         "<esc><wait>",
         "<esc><wait>",
         "<enter><wait>",
@@ -29,23 +29,23 @@
       "boot_wait": "10s",
       "guest_os_type": "debian7-64",
       "http_directory": "http",
-      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04-server-amd64.iso",
-      "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
+      "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.2-server-amd64.iso",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
-      "ssh_password": "tripl3inf",
+      "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_username": "tripl3inf",
+      "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "linux",
-      "shutdown_command": "echo 'tripl3inf'|sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "output_directory": "./vm_output"
-	}
+    }
   ],
   "provisioners": [
     {
       "type": "shell",
       "pause_before": "10s",
-      "execute_command": "echo 'tripl3inf'|sudo -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S bash '{{.Path}}'",
       "scripts": [
         "scripts/base.sh",
         "scripts/vagrant.sh",
@@ -54,15 +54,16 @@
     },
     {
       "type": "ansible-local",
-      "playbook_file": "/Users/tripl3inf/Packer/ubuntu-server/ansible/playbook_provision-vmware.yml",
+      "playbook_file": "./ansible/playbook_provision-vmware.yml",
       "extra_arguments": ["-vvvv"],
-      "playbook_dir": "/Users/tripl3inf/Packer/ubuntu-server/ansible"
+      "playbook_dir": "./ansible"
     }
   ],
-  "post-processors": [  
+  "post-processors": [
     {
-      "type": "compress",
-      "output": "VM_ub14.tar.gz"
+      "type": "vagrant",
+      "output": "Ubuntu-Server-1404_{{.Provider}}_{{isotime}}.box",
+      "keep_input_artifact": true
     }
   ]
 }

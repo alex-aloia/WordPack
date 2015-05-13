@@ -5,10 +5,10 @@ if test -f linux.iso ; then
 
     cd /tmp
     mkdir -p /mnt/cdrom
-    mount -o loop /home/tripl3inf/linux.iso /mnt/cdrom
+    mount -o loop /home/vagrant/linux.iso /mnt/cdrom
     tar zxvf /mnt/cdrom/VMwareTools-*.tar.gz -C /tmp/
     /tmp/vmware-tools-distrib/vmware-install.pl -d
-    rm /home/tripl3inf/linux.iso
+    rm /home/vagrant/linux.iso
     umount /mnt/cdrom
     rmdir /mnt/cdrom
 
@@ -18,7 +18,7 @@ elif test -f .vbox_version ; then
 apt="apt-get -qq -y"
 
 set -x
-if [ ! -e /home/tripl3inf/.vbox_version ] ; then
+if [ ! -e /home/vagrant/.vbox_version ] ; then
     exit 0
 fi
 
@@ -39,8 +39,8 @@ fi
     fi
 
 # Installing the virtualbox guest additions
-VBOX_VERSION=$(cat /home/tripl3inf/.vbox_version)
-VBOX_ISO=/home/tripl3inf/VBoxGuestAdditions_${VBOX_VERSION}.iso
+VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
+VBOX_ISO=/home/vagrant/VBoxGuestAdditions_${VBOX_VERSION}.iso
 cd /tmp
 
 if [ ! -f $VBOX_ISO ] ; then
