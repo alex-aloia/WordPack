@@ -1,0 +1,3 @@
+[submodule "ubuntu-server/ansible"]
+	path = ubuntu-server/ansible
+	url = git@github.com:tripl3inf/WordPlay.git
