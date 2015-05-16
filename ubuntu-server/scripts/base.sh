@@ -2,20 +2,20 @@
 set -e
 
 # Update
-#apt-get -y update
-#DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confnew" dist-upgrade
+apt-get -y update
+DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confnew" dist-upgrade
 
 # Install helpful things
-#apt-get -y install build-essential #linux-headers-$(uname -r)
-#apt-get -y install zlib1g-dev libreadline-gplv2-dev curl unzip vim
+apt-get -y install build-essential #linux-headers-$(uname -r)
+apt-get -y install zlib1g-dev libreadline-gplv2-dev curl unzip vim
 
 # Download new kernel and headers since VMware-tools doesn't compile properly on 3.13 kernels
-#wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-image-3.14.4-031404-generic_3.14.4-031404.201405130853_amd64.deb
-#wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-headers-3.14.4-031404_3.14.4-031404.201405130853_all.deb
-#wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-headers-3.14.4-031404-generic_3.14.4-031404.201405130853_amd64.deb
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-image-3.14.4-031404-generic_3.14.4-031404.201405130853_amd64.deb
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-headers-3.14.4-031404_3.14.4-031404.201405130853_all.deb
+wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.14.4-utopic/linux-headers-3.14.4-031404-generic_3.14.4-031404.201405130853_amd64.deb
 
 # Install new kernel and headers
-#dpkg -i *.deb
+dpkg -i *.deb
 
 # Set up sudo (thanks to codeship.io)
 groupadd -r admin
