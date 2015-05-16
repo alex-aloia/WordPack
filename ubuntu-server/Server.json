@@ -57,12 +57,22 @@
       "playbook_file": "./ansible/playbook_provision-vmware.yml",
       "extra_arguments": ["-vvvv"],
       "playbook_dir": "./ansible"
+    },
+    {
+      "type": "shell",
+      "pause_before": "10s",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ]
     }
   ],
+
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "Ubuntu-Server-1404_{{.Provider}}_{{isotime}}.box",
+      "output": "Ubuntu-Server-1404.2_{{.Provider}}_{{isotime}}.box",
       "keep_input_artifact": true
     }
   ]
