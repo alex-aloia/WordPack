@@ -72,7 +72,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "Ubuntu-Server-1404.2_{{.Provider}}_{{isotime}}.box",
+      "output": "./Ubuntu-Server-1404.2_{{.Provider}}_{{isotime}}.box",
       "keep_input_artifact": true
     }
   ]
