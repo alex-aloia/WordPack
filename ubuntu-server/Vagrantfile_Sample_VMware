@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+
+  config.vm.define :vmware do |vmware|
+    vmware.vm.box = "ub1404.2_wp"
+    vmware.vm.hostname = "dev.t3inf.com"
+    vmware.vm.network :public_network
+
+    # shared folder
+    vmware.vm.synced_folder "srv/", "/srv/", type:"nfs"
+    vmware.vm.synced_folder ".", "/vagrant", disabled: true
+
+    vmware.ssh.forward_agent = true
+
+    config.vm.provider "vmware_fusion" do |vmware|
+      vmware.vmx["memsize"] = "1024"
+      vmware.vmx["numvcpus"] = "1"
+      vmware.vmx["vhv.enable"] = "TRUE"
+      vmware.vmx["ethernet0.present"] = "TRUE"
+      vmware.vmx["ethernet0.connectionType"] = "nat"
+      vmware.vmx["ethernet1.generatedAddress"] = nil
+      vmware.vmx["ethernet1.addressType"] = "static"
+      vmware.vmx["ethernet1.present"] = "TRUE"
+      vmware.vmx["ethernet1.connectionType"] = "bridged"
+      vmware.vmx["ethernet1.address"] = "00:0c:29:ca:d4:a1"
+    end
+
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "./ansible/playbook_wordpress.yml"
+    end
+
+
+  end
+end
+
+
+
+
+
+
